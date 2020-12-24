@@ -1,0 +1,5 @@
+# Exercises in chapter 5
+bin/sentence_endings.py
+bin/my_ls.py
+
+bin/__pycache__
