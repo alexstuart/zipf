@@ -1,11 +1,11 @@
-.PHONY : all clean
+.PHONY : all clean settings
 
 COUNT=bin/countwords.py
-RUN_COUNT=python $(COUNT)
+DATA=$(wildcard data/*.txt)
+RESULTS=$(patsubst data/%.txt,results/%.csv,$(DATA))
 
 # Regenerate all results.
-all : results/moby_dick.csv results/jane_eyre.csv \
-	results/time_machine.csv
+all : $(RESULTS)
 
 # Remove all generated files.
 clean :
@@ -13,4 +13,9 @@ clean :
 
 # Regenerate results for any book
 results/%.csv : data/%.txt $(COUNT)
-	$(RUN_COUNT) $< > $@
+	python $(COUNT) $< > $@
+
+settings :
+	@echo COUNT: $(COUNT)
+	@echo DATA: $(DATA)
+	@echo RESULTS: $(RESULTS)
