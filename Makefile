@@ -1,4 +1,4 @@
-.PHONY : all clean help settings
+.PHONY : all clean help settings results
 
 COUNT=bin/countwords.py
 COLLATE=bin/collate.py
@@ -9,6 +9,9 @@ RESULTS=$(patsubst data/%.txt,results/%.csv,$(DATA))
 
 ## all : Regenerate all results.
 all : results/collated.png
+
+## results : creates or updates any result files that are missing or out of date
+results : $(RESULTS)
 
 ## results/collated.png: plot the collated results.
 results/collated.png : results/collated.csv
