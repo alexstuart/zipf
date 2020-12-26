@@ -1,10 +1,10 @@
-.PHONY : all clean settings help
+.PHONY : all clean help settings
 
 COUNT=bin/countwords.py
-DATA=$(wildcard data/*.txt)
-RESULTS=$(patsubst data/%.txt,results/%.csv,$(DATA))
 COLLATE=bin/collate.py
 PLOT=bin/plotcounts.py
+DATA=$(wildcard data/*.txt)
+RESULTS=$(patsubst data/%.txt,results/%.csv,$(DATA))
 
 ## all : Regenerate all results.
 all : results/collated.png
@@ -15,16 +15,16 @@ results/collated.png : results/collated.csv
 
 ## results/collated.csv : collate all results.
 results/collated.csv : $(RESULTS) $(COLLATE)
-	mkdir -p results
+	@mkdir -p results
 	python $(COLLATE) $(RESULTS) > $@
 
-## results/%.csv: Regenerate results for any book
+## results/%.csv: Regenerate result for any book
 results/%.csv : data/%.txt $(COUNT)
 	python $(COUNT) $< > $@
 
 ## clean :  Remove all generated files.
 clean :
-	rm -f $(RESULTS) results/collated.csv results/collated.png
+	rm $(RESULTS) results/collated.csv results/collated.png
 
 ## settings : show variables' values
 settings :
@@ -32,6 +32,7 @@ settings :
 	@echo DATA: $(DATA)
 	@echo RESULTS: $(RESULTS)
 	@echo COLLATE: $(COLLATE)
+	@echo PLOT: $(PLOT)
 
 ## help : show this message
 help :
