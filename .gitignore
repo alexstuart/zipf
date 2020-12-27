@@ -3,3 +3,5 @@ bin/sentence_endings.py
 bin/my_ls.py
 
 bin/__pycache__
+
+*swp
