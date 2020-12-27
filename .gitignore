@@ -8,3 +8,6 @@ bin/__pycache__
 
 saveconfig.yml
 plotcounts.png
+
+.coverage
+htmlcov/
