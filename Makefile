@@ -1,6 +1,7 @@
 .PHONY : all clean help settings results
 
 PLOTSTYLE=bmh
+SAVECONFIG=saveconfig.yml
 
 COUNT=bin/countwords.py
 COLLATE=bin/collate.py
@@ -34,6 +35,11 @@ results/%.csv : data/%.txt $(COUNT) $(SUMMARY)
 ## clean :  Remove all generated files.
 clean :
 	rm -f $(RESULTS) results/collated.csv results/collated.png
+
+## test-saveconfig : save plot configuration.
+test-saveconfig :
+	python $(PLOT) --saveconfig $(SAVECONFIG) \
+		--plotparams $(PLOTPARAMS)
 
 ## settings : show variables' values
 settings :

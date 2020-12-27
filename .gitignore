@@ -5,3 +5,5 @@ bin/my_ls.py
 bin/__pycache__
 
 *swp
+
+saveconfig.yml
