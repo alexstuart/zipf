@@ -5,6 +5,7 @@ import argparse
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
+import matplotlib.pyplot as plt
 from scipy.optimize import minimize_scalar
 import yaml
 
@@ -51,7 +52,6 @@ def set_plot_params(param_file):
     for param, value in param_dict.items():
         mpl.rcParams[param] = value
 
-
 def plot_fit(curve_xmin, curve_xmax, max_rank, alpha, ax):
     """
     Plot the power law curve that was fitted to the data.
@@ -76,6 +76,8 @@ def plot_fit(curve_xmin, curve_xmax, max_rank, alpha, ax):
 
 def main(args):
     """Run the command line program."""
+    if args.style:
+        plt.style.use(args.style)
     set_plot_params(args.plotparams)
     df = pd.read_csv(args.infile, header=None,
                      names=('word', 'word_frequency'))
@@ -117,6 +119,9 @@ if __name__ == '__main__':
                         default=None, help='X-axis limits')
     parser.add_argument('--plotparams', type=str, default=None,
                         help='matplotlib parameters (YAML file)')
+    parser.add_argument('--style', type=str, default=None,
+                        choices=plt.style.available,
+                        help='matplotlib chart style')
     args = parser.parse_args()
     main(args)
 

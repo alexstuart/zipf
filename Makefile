@@ -1,5 +1,7 @@
 .PHONY : all clean help settings results
 
+PLOTSTYLE=bmh
+
 COUNT=bin/countwords.py
 COLLATE=bin/collate.py
 PLOT=bin/plotcounts.py
@@ -15,8 +17,8 @@ all : results/collated.png
 results : $(RESULTS)
 
 ## results/collated.png: plot the collated results.
-results/collated.png : results/collated.csv $(PLOTPARAMS)
-	python $(PLOT) --plotparams $(word 2,$^)  $< --outfile $@
+results/collated.png : results/collated.csv $(PLOT) $(PLOTPARAMS)
+	python $(PLOT) --style $(PLOTSTYLE) --plotparams $(word 3,$^)  $< --outfile $@
 
 ## results/collated.csv : collate all results.
 results/collated.csv : $(RESULTS) $(COLLATE)
