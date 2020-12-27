@@ -3,6 +3,7 @@
 COUNT=bin/countwords.py
 COLLATE=bin/collate.py
 PLOT=bin/plotcounts.py
+PLOTPARAMS=bin/plotparams.yml
 SUMMARY=bin/book_summary.sh
 DATA=$(wildcard data/*.txt)
 RESULTS=$(patsubst data/%.txt,results/%.csv,$(DATA))
@@ -14,8 +15,8 @@ all : results/collated.png
 results : $(RESULTS)
 
 ## results/collated.png: plot the collated results.
-results/collated.png : results/collated.csv
-	python $(PLOT) $< --outfile $@
+results/collated.png : results/collated.csv $(PLOTPARAMS)
+	python $(PLOT) --plotparams $(word 2,$^)  $< --outfile $@
 
 ## results/collated.csv : collate all results.
 results/collated.csv : $(RESULTS) $(COLLATE)
